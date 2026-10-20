@@ -1,0 +1,16 @@
+version: 2
+
+metrics:
+  - name: total_mrr
+    description: "Revenu Récurrent Mensuel Total ($)"
+    type: simple
+    label: "Total MRR"
+    type_params:
+      measure: total_mrr
+
+  - name: active_subscriptions
+    description: "Nombre total d'abonnements comptabilisés"
+    type: simple
+    label: "Abonnements Actifs"
+    type_params:
+      measure: subscription_count

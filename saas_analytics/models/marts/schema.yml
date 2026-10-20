@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Table de dimension des entreprises clientes"
+    columns:
+      - name: customer_id
+        description: "Clé primaire du client"
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_subscriptions
+    description: "Table de faits des abonnements SaaS"
+    columns:
+      - name: subscription_id
+        description: "Clé primaire de l'abonnement"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Clé étrangère vers dim_customers"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_id
+      - name: status
+        description: "Statut de l'abonnement"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['active', 'cancelled']

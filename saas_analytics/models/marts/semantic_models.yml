@@ -1,0 +1,50 @@
+version: 2
+
+semantic_models:
+  - name: customers_semantic_model
+    model: ref('dim_customers')
+    description: "Modèle sémantique des entreprises clientes"
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_id
+    dimensions:
+      - name: company_name
+        type: categorical
+      - name: industry
+        type: categorical
+      - name: created_at
+        type: time
+        type_params:
+          time_granularity: day
+
+  - name: subscriptions_semantic_model
+    model: ref('fct_subscriptions')
+    description: "Modèle sémantique des abonnements et métriques financières"
+    entities:
+      - name: subscription
+        type: primary
+        expr: subscription_id
+      - name: customer
+        type: foreign
+        expr: customer_id
+    measures:
+      - name: total_mrr
+        description: "Somme du Revenu Récurrent Mensuel (MRR)"
+        expr: mrr
+        agg: sum
+        agg_time_dimension: start_date
+      - name: subscription_count
+        description: "Nombre total d'abonnements"
+        expr: 1
+        agg: sum
+        agg_time_dimension: start_date
+    dimensions:
+      - name: status
+        type: categorical
+      - name: plan_name
+        type: categorical
+      - name: start_date
+        type: time
+        type_params:
+          time_granularity: day

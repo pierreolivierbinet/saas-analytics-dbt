@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw_saas              # Nom logique attribué au groupe de sources
+    database: saas-analytics-project-512218  # ID de votre projet GCP BigQuery
+    schema: raw                 # Nom du dataset BigQuery hébergeant les données brutes
+    tables:
+      - name: raw_customers     # Table des entreprises clientes
+        description: "Référentiel brut des entreprises clientes"
+      - name: raw_plans         # Table des offres
+        description: "Grille tarifaire brute des formules d'abonnement"
+      - name: raw_subscriptions # Table de l'historique d'abonnement
+        description: "Historique brut des activations, upgrades et résiliations"
