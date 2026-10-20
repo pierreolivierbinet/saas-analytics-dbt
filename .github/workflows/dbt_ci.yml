@@ -24,6 +24,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install dbt-bigquery
 
+      - name: Create dummy dbt profile
+        run: |
+          mkdir -p ~/.dbt
+          cat <<EOF > ~/.dbt/profiles.yml
+          saas_analytics:
+            target: dev
+            outputs:
+              dev:
+                type: bigquery
+                method: oauth
+                project: saas-analytics-project-512218
+                dataset: analytics
+          EOF
+
       - name: Run dbt parse
         run: |
           cd saas_analytics
